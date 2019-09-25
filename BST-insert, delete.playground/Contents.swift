@@ -1,8 +1,6 @@
-//: Playground - noun: a place where people can play
+// BST, insert, delete, orders
 
 import Foundation
-
-
 
 class tNode : NSObject {
     var value: Int

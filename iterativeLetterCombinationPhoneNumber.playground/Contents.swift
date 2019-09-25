@@ -1,46 +1,50 @@
-//: Playground - noun: a place where people can play
+// Combine possible letters on a Keypad
+// iterative letters
+// Time complexity: O(4^N)
 
 import Foundation
 
+let letterTable = [
+    "",
+    "",
+    "abc",
+    "def",
+    "ghi",
+    "jkl",
+    "mno",
+    "pqrs",
+    "tuv",
+    "wxyz"
+]
 
-
-func letterCombination(_ numbers: [Int]) {
-    let letterTable = [
-        "",
-        "",
-        "abc",
-        "def",
-        "ghi",
-        "jkl",
-        "mno",
-        "pqrs",
-        "tuv",
-        "wxyz"
-    ]
+func letterCombination(_ numbers: [Int]) -> [String] {
+    if numbers.isEmpty {
+        return []
+    }
     
-    var list: [String] = []
+    var result: [String] = []
     var queue: [String] = [""]
     
     while !queue.isEmpty {
-        print("--------")
-        let letter = queue.first!
-        print(letter)
-        queue = Array(queue.dropFirst())
-        print(queue)
+        let letter = queue.removeFirst()
+        
         if letter.count == numbers.count {
-            print("same count")
-            list.append(letter)
-            print(list)
+            result.append(letter)
         }
         else {
-            print(letterTable[numbers[letter.count]])
             letterTable[numbers[letter.count]].forEach {
                 queue.append("\(letter)\($0)")
             }
-            print(queue)
         }
     }
-    print(list)
+    return result
 }
 
-print(letterCombination([2,3]))
+func letterCombination2(_ numbers: String) -> [String] {
+    let keys = numbers.map { Int(String($0)) ?? 0 }
+    return letterCombination(keys)
+}
+
+
+//print(letterCombination([2,3]))
+print(letterCombination2("234"))
