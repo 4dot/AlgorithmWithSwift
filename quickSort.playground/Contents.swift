@@ -1,4 +1,4 @@
-//: Playground - noun: a place where people can play
+// QuickSort
 
 import UIKit
 
@@ -9,7 +9,6 @@ import UIKit
 class QuickSort<T:Comparable>{
     
     typealias Element = T
-    
     var dataArray:[T]
     
     init(_ array: [Element]) {
@@ -25,7 +24,6 @@ class QuickSort<T:Comparable>{
         
         //start인덱스가 end 인덱스를 넘기 전까지 루프
         while(start <= end) {
-            
             //start 인덱스 값이 피봇값보다 작을경우 start 인덱스를 오른쪽으로 이동
             while (dataArray[start] < pivotValue) {
                 start += 1
@@ -47,10 +45,8 @@ class QuickSort<T:Comparable>{
                 end -= 1
             }
         }
-        
         return start
     }
-    
     
     func sortByQuick() {
         sortByQuick(0, dataArray.count - 1)

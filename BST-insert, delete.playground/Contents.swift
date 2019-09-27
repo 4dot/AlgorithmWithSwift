@@ -1,4 +1,4 @@
-// BST, insert, delete, orders
+// BST, insert, delete, orders, balanced?
 
 import Foundation
 
@@ -11,16 +11,145 @@ class tNode : NSObject {
         self.value = value
     }
 }
-
-func inorderNode(_ root: tNode?) {
+//------------------------------------------------------
+func inorderRecursion(_ root: tNode?) {
     guard let node = root else {
         return
     }
-    inorderNode(node.left)
+    inorderRecursion(node.left)
     print("\(node.value)")
-    inorderNode(node.right)
+    inorderRecursion(node.right)
 }
-
+//------------------------------------------------------
+func inorderStack(_ root: tNode?) {
+    guard let root = root else {
+        return
+    }
+    
+    var stack: [tNode] = []
+    var next: tNode? = root
+    
+    while true {
+        if let node = next {
+            stack.append(node)
+            next = node.left
+        }
+        else {
+            if stack.isEmpty {
+                break
+            }
+            let pop = stack.removeLast()
+            print(pop.value)
+            next = pop.right
+        }
+    }
+}
+//------------------------------------------------------
+// Time: O(n)
+func inorderMorris(_ root: tNode?) {
+    guard let node = root else {
+        return
+    }
+    
+    var current: tNode? = node
+    var prev: tNode?
+    
+    while current != nil {
+        if current?.left == nil {
+            print(current!.value)
+            current = current?.right
+        }
+        else {
+            prev = current?.left
+            
+            while prev?.right != nil && prev?.right != current {
+                prev = prev?.right
+            }
+            if prev?.right == nil {
+                prev?.right = current
+                current = current?.left
+            }
+            else {
+                prev?.right = nil
+                print(current?.value)
+                current = current?.right
+            }
+        }
+    }
+}
+//------------------------------------------------------
+var lvlResult: [[Int]] = [[]]
+func levelOrder(_ root: tNode?, _ lvl: Int) {
+    guard let node = root else {
+        return
+    }
+    let level = lvl + 1
+    if lvlResult.count <= level {
+        lvlResult.append([])
+    }
+    lvlResult[level].append(node.value)
+    levelOrder(node.left, level)
+    levelOrder(node.right, level)
+}
+//------------------------------------------------------
+var rightNode: tNode?
+func flattern(_ root: tNode?) {
+    guard let node = root else {
+        return
+    }
+    
+    flattern(node.right)
+    flattern(node.left)
+    node.right = rightNode
+    node.left = nil
+    rightNode = node.right
+    
+    print("right: \(rightNode?.value) root: \(node.value)")
+}
+//------------------------------------------------------
+// using morris (flat Array)
+func toLinkedList(_ root: tNode?) -> tNode? {
+    var temp = root
+    var crawl = root
+    
+    while temp != nil {
+        var right = temp?.right
+        temp?.right = temp?.left
+        temp?.left = nil
+    
+    
+        crawl = temp
+        while crawl?.right != nil {
+            crawl = crawl?.right
+        }
+        crawl?.right = right
+        temp = temp?.right
+    }
+    return nil
+    
+}
+//------------------------------------------------------
+func isBalanced(root: tNode?, height: inout Int) -> Bool {
+    guard let node = root else {
+        height = 0
+        return true
+    }
+    
+    var lHeight = 0
+    var rHeight = 0
+    
+    let isLBalanced = isBalanced(root: node.left, height: &lHeight)
+    let isRBalanced = isBalanced(root: node.right, height: &rHeight)
+    
+    height = max(lHeight, rHeight) + 1
+    
+    if abs(lHeight - rHeight) >= 2 {
+        return false
+    } else {
+        return isLBalanced && isRBalanced
+    }
+}
+//------------------------------------------------------
 func insertNode(_ root: tNode?, _ value: Int) -> tNode {
     guard let node = root else {
         return tNode(value)
@@ -37,7 +166,7 @@ func insertNode(_ root: tNode?, _ value: Int) -> tNode {
     
     return node
 }
-
+//------------------------------------------------------
 func deleteNode(_ root: tNode?, _ value: Int) -> tNode? {
     guard let node = root else {
         return root
@@ -71,34 +200,37 @@ func deleteNode(_ root: tNode?, _ value: Int) -> tNode? {
         
         successorParent.left = minNode!.right
         node.value = minNode!.value
-        
-        
 //        node.value = minNode!.value
-//
 //        node.right = deleteNode(node.right, minNode!.value)
     }
     return node
 }
-
+//------------------------------------------------------
 
 var root: tNode? = nil
-root = insertNode(root, 50)
-root = insertNode(root, 30)
-root = insertNode(root, 20)
-root = insertNode(root, 40)
-root = insertNode(root, 70)
-root = insertNode(root, 60)
-root = insertNode(root, 80)
+root = insertNode(root, 4)
+var _ = insertNode(root, 2)
+var _ = insertNode(root, 1)
+var _ = insertNode(root, 3)
+var _ = insertNode(root, 6)
+var _ = insertNode(root, 5)
+var _ = insertNode(root, 7)
 
-inorderNode(root)
-print("delete 20")
-deleteNode(root, 20)
-inorderNode(root)
+flattern(root)
+inorderRecursion(root)
+//inorderNodeRecursion(root)
+//inorderStack(root)
+//inorderMorris(root)
+//levelOrder(root, -1)
+//print(lvlResult)
+//print("delete 20")
+//deleteNode(root, 20)
+//inorderNode(root)
 
-print("delete 30")
-deleteNode(root, 30)
-inorderNode(root)
-
-print("delete 50")
-deleteNode(root, 50)
-inorderNode(root)
+//print("delete 30")
+//deleteNode(root, 30)
+//inorderNode(root)
+//
+//print("delete 50")
+//deleteNode(root, 50)
+//inorderNode(root)
