@@ -50,3 +50,42 @@ func kthSmallest(_ arr: inout [Int], left: Int, right: Int, k: Int) -> Int {
 
 var arr = [10, 4, 5, 8, 6, 11, 26]
 print(kthSmallest(&arr, left: 0, right: arr.count - 1, k: 3))
+
+// Simple
+func pivot(_ start: Int, _ end: Int) -> Int {
+    let pivotIdx = (start + end) / 2
+    let pivot = arr[pivotIdx]
+    
+    var startIdx = start
+    var endIdx = end
+    
+    while startIdx <= endIdx {
+        while arr[startIdx] < pivot {
+            startIdx += 1
+        }
+        while arr[endIdx] > pivot {
+            endIdx -= 1
+        }
+        
+        if startIdx <= endIdx {
+            arr.swapAt(startIdx, endIdx)
+            startIdx += 1
+            endIdx -= 1
+        }
+    }
+    return startIdx
+    
+}
+func qSelection(_ start: Int, _ end: Int, _ k: Int) -> Int {
+    let point = pivot(start, end)
+    
+    if point-start ==  k-1 {
+        return arr[point]
+    }
+    if point-start > k-1 {
+        return qSelection(start, point-1, k)
+    }
+    else {
+        return qSelection(point + 1, end, k-point+start-1)
+    }
+}
