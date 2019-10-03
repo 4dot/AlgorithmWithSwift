@@ -167,6 +167,41 @@ func insertNode(_ root: tNode?, _ value: Int) -> tNode {
     return node
 }
 //------------------------------------------------------
+func searchNode(_ root: tNode?, _ value: Int) -> tNode? {
+    guard let node = root else {
+        return root
+    }
+    
+    if value == node.value {
+        return node
+    }
+    
+    if value < node.value {
+        return searchNode(node.left, value)
+    }
+    else if value > node.value {
+        return searchNode(node.right, value)
+    }
+    return nil
+}
+//------------------------------------------------------
+func searchNodeIterative(_ root: tNode?, _ value: Int) -> tNode? {
+    
+    var node = root
+    while node != nil {
+        if value == node!.value {
+            return node
+        }
+        else if value < node!.value {
+            node = node!.left
+        }
+        else if value > node!.value {
+            node = node!.right
+        }
+    }
+    return nil
+}
+//------------------------------------------------------
 func deleteNode(_ root: tNode?, _ value: Int) -> tNode? {
     guard let node = root else {
         return root

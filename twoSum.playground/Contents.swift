@@ -11,17 +11,14 @@ func findTwoSum(_ arr: [Int], _ sum: Int) -> [[Int]] {
         let minus = sum - $0
         
         if dic[minus] != nil {
-            result.append([dic[minus]!, $0])
+            result.append([minus, $0])
         }
-        else {
-            dic[minus] = $0
-        }
+        
+        dic[$0] = $0
+        print(dic)
     }
     
     return result
 }
 
 print(findTwoSum([3,5,2,-4,8,11], 7))
-
-
-
