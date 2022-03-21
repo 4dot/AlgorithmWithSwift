@@ -144,14 +144,45 @@ class wordDistance {
     }
 }
 
-let minDistance1 = minimumIndexDistance(start: 3, end: 6, arr: [3, 5, 4, 2, 6, 5, 6, 6, 5, 4, 8, 3])
-print(minDistance1)
+//let minDistance1 = minimumIndexDistance(start: 3, end: 6, arr: [3, 5, 4, 2, 6, 5, 6, 6, 5, 4, 8, 3])
+//print(minDistance1)
+//
+//let minDistance2 = minDist(arr: [3, 5, 4, 2, 6, 3, 0, 0, 5, 4, 8, 3], n: 12, x:3, y: 6)
+//print(minDistance2)
+//
+//let minDistance3 = minimumWordDistance(start: "def", end: "jkl", arr: ["abc", "def", "ghi", "jkl", "mno", "pqr"])
+//print(minDistance3)
+//
+//let wordDistance4 = wordDistance(["abc", "def", "aaa", "jkl", "mno", "def", "jkl"])
+//print(wordDistance4.distance(wordOne: "def", wordTwo: "jkl"))
 
-let minDistance2 = minDist(arr: [3, 5, 4, 2, 6, 3, 0, 0, 5, 4, 8, 3], n: 12, x:3, y: 6)
-print(minDistance2)
 
-let minDistance3 = minimumWordDistance(start: "def", end: "jkl", arr: ["abc", "def", "ghi", "jkl", "mno", "pqr"])
-print(minDistance3)
+func minimumWordDistance3(start: String, end: String, arr: [String]) -> Int {
+    // check status
+    // 1. exist dup?
+    // 2. lower, upper case matter?
+    
+    var distance = Int.max
+    var wordIdx = -1
+    var currWord: String?
+    
+    for (idx, word) in arr.enumerated() {
+        if word == start || word == end {
+            
+            if let prevWord = currWord,
+                word != prevWord {
+                // update distance
+                distance = min(distance, idx - wordIdx)
+            }
+            currWord = word
+            wordIdx = idx
+            
+            print("curr: \(currWord), idx: \(wordIdx), dist: \(distance)")
+        }
+    }
+    
+    return distance
+}
 
-let wordDistance4 = wordDistance(["abc", "def", "aaa", "jkl", "mno", "def", "jkl"])
-print(wordDistance4.distance(wordOne: "def", wordTwo: "jkl"))
+print(minimumWordDistance3(start: "def", end: "jkl", arr: ["abc", "def", "jkl", "ghi", "jkl", "mno", "pqr"]))
+

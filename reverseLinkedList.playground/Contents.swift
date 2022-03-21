@@ -1,7 +1,5 @@
-//: Playground - noun: a place where people can play
-
 import Foundation
-import UIKit
+//import UIKit
 ////
 //// reverse linked list
 ////
@@ -79,13 +77,52 @@ func reverseLinkedListRecusive(head: Link?) -> Link? {
 }
 
 
+func reverseBetween(_ head: Link?, _ m: Int, _ n: Int) -> Link? {
+    var current: Link? = head
+    var next: Link? = nil
+    var prev: Link? = nil
+    
+    let start: Link? = head
+    var target: Link? = nil
+    
+    var idx = 0
+    while (current != nil && idx < n) {
+        print(idx)
+        
+        next = current?.next
+        prev = current
+        current = next
+        
+        if idx > m && idx < n {
+            current?.next = prev
+            print("in")
+        }
+        
+        if idx == (m - 1) {
+            target = current
+            print("find")
+        }
+        
+        idx += 1
+    }
+    
+    target?.next = current
+    current?.next = target
+    
+    print(current?.data ?? 0)
+    return start
+}
 
-let linkedList = createLinkedList(cnt: 10)
+let linkedList = createLinkedList(cnt: 5)
 print(printLinkedList(head: linkedList))
+//
+//let reverse = reverseLinkedList(head: linkedList)
+//print(printLinkedList(head: reverse!))
+//
+//let recurse = reverseLinkedListRecusive(head: reverse)
+//print(printLinkedList(head: recurse!))
 
-let reverse = reverseLinkedList(head: linkedList)
+let reverse = reverseBetween(linkedList, 2, 4)
 print(printLinkedList(head: reverse!))
 
-let recurse = reverseLinkedListRecusive(head: reverse)
-print(printLinkedList(head: recurse!))
 

@@ -1,0 +1,40 @@
+import UIKit
+
+func hitTest(_ view: UIView, _ point: CGPoint) -> UIView?
+
+func displaySubviews(_ view: UIView)
+
+func commonAncistor(_ view1: UIView, _ view2: UIView) -> UIView?
+
+func addBinaryString(_ str1: String, _ str2: String) -> String
+
+func nearestPoints(_ arr: [CGPoint], _ k: Int) -> [CGPoint]
+
+func allPossiblePath(_ cube: Int) -> [String]
+
+func oceanViews(_ arr: [Int]) -> [Int]
+
+func alienDic(_ arr: [String], _ order: String) -> Bool
+
+func validParentheses(_ str: String) -> Bool
+
+func minRemoveParentheses(_ str: String) -> String
+
+func subArraySum(_ arr: [Int], _ k: Int) -> Int
+
+func continueSubArraySum(_ arr: [Int], _ k: Int) -> Int
+
+func kthLargestElement(_ arr: [Int], _ k: Int) -> Int
+
+func validPalindrome(_ str: String) -> Bool
+
+func mergeSortedArray(_ arr1: inout [Int], _ m: Int, _ arr2: [Int], _ n: Int)
+
+func kthMissingInt(_ arr: [Int], _ k: Int) -> Int
+
+func pow(_ x: Double, _ n: Int) -> Double
+
+
+
+
+

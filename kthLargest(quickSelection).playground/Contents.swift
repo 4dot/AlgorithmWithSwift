@@ -3,7 +3,7 @@
 
 import Foundation
 
-var arr = [10, 4, 5, 8, 6, 11, 26]
+var arr = [5, 4, 8, 10, 6, 11, 26]
 
 
 
@@ -35,7 +35,7 @@ func quickSort(_ arr : inout [Int], _ start: Int, _ end: Int) {
     quickSort(&arr, right, arr.count - 1)
 }
 
-print(quickSort(&arr, 0, arr.count - 1))
+//print(quickSort(&arr, 0, arr.count - 1))
 
 
 
@@ -91,9 +91,9 @@ func quick_selection(_ k: Int) -> Int {
 //print(quick_selection(4))
 
 
-for idx in 0..<arr.count {
-    print("\n\n\(arr) -> k: \(idx) = \(quick_selection(idx))")
-}
+//for idx in 0..<arr.count {
+//    print("\n\n\(arr) -> k: \(idx) = \(quick_selection(idx))")
+//}
 
 
 
@@ -113,6 +113,7 @@ func partition(_ start: Int, end: Int) -> Int {
         }
         
         arr.swapAt(startIdx, endIdx)
+        print("\(startIdx), \(endIdx) -> \(arr)")
     }
     arr[startIdx] = pivot
     return startIdx
@@ -133,7 +134,9 @@ func quickSelection(_ start: Int, _ end: Int, _ k: Int) -> Int {
     return arr[arr.count - k]
 }
 
-//print(quickSelection(0, arr.count - 1, 3))
+print(quickSelection(0, arr.count - 1, 3))
+
+
 //class Solution {
 //public:
 //

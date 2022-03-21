@@ -6,24 +6,22 @@
 import Foundation
 
 
-// "abcdefghij", n = 3
+let mat = [[1, 2, 3],
+           [4, 5, 6],
+           [7, 8, 9]]
 
-//a d g j
-//b e h
-//c f i
-func lineOut(_ text: String, _ k: Int) {
-    let chars: [Character] = Array(text)
-    var curr = 0
-    
-    while curr < chars.count {
-        var line: [Character] = []
-        for idx in 0..<k {
-            line.append(chars[idx])
-        }
-        print(String(line))
-        
-        curr += (k-1)
+
+func possiblePath(_ mat: [[Int]], x: Int, y: Int) {
+    if x >= 2 || y >= 2 {
+        return
     }
+    
+    print(mat[x][y])
+    
+    // print right
+    
+    
+    
 }
 
-lineOut("abcdefghij", 3)
+print(possiblePath(mat, x: 0, y: 0))
